@@ -17,6 +17,10 @@ public class Uniform {
 	public void setImg(String img) {
 		Img = img;
 	}
+	
+	public Uniform getNext() {
+		return next;
+	}
 
 	public void addUniform(Uniform newUniform) {
 		if (next == null) {
@@ -36,5 +40,6 @@ public class Uniform {
 		} else {
 			return null;
 		}
+
 	}
 }

@@ -7,6 +7,7 @@ public class Game {
 	private Team firstTeam;
 
 	public Game() {
+
 		start();
 	}
 
@@ -60,6 +61,8 @@ public class Game {
 		addTeam("Paraguay");
 		addTeam("USA");
 		addTeam("Peru");
+		addUniform("Colombia", ".\\UniformeColombia.png");
+		addUniform("Colombia", ".\\UniformeColombiaV.jpg");
 
 	}
 
