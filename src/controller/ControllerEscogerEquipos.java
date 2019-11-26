@@ -11,17 +11,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Team;
 
 public class ControllerEscogerEquipos implements Initializable {
-	
-	
+
 	private static ControllerMenu cm;
 	@FXML
 	private Button anterior;
@@ -31,18 +33,20 @@ public class ControllerEscogerEquipos implements Initializable {
 	private Button siguiente;
 	@FXML
 	private Label equipo;
-	@FXML 
+	@FXML
 	private ImageView uniform;
 	@FXML
 	private Button local;
 	@FXML
 	private Button visitante;
 	private Stage stageUniforme;
-	
+	private boolean selTeam;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		cm = new ControllerMenu();
 		equipo.setText(cm.getGame().getFirstTeam().getName());
+		selTeam = false;
 		Image image;
 		try {
 			image = new Image(new FileInputStream(cm.getGame().getFirstTeam().getFirstUniform().getImg()));
@@ -74,7 +78,7 @@ public class ControllerEscogerEquipos implements Initializable {
 			uniform.setImage(image);
 		}
 	}
-	
+
 	public void clickLocal(ActionEvent ae) throws Exception {
 		Team actual = cm.getGame().searchTeam(equipo.getText());
 		if (actual.getFirstUniform() != null) {
@@ -82,12 +86,42 @@ public class ControllerEscogerEquipos implements Initializable {
 			uniform.setImage(image);
 		}
 	}
-	
-	public void clickVisitante(ActionEvent ae) throws Exception{
+
+	public void clickVisitante(ActionEvent ae) throws Exception {
 		Team actual = cm.getGame().searchTeam(equipo.getText());
 		if (actual.getFirstUniform() != null && actual.getFirstUniform().getNext() != null) {
 			Image image = new Image(new FileInputStream(actual.getFirstUniform().getNext().getImg()));
 			uniform.setImage(image);
 		}
+	}
+
+	public void clickMenu(ActionEvent ae) throws Exception {
+		stageUniforme.close();
+		cm.getMain().start(cm.getStage());
+	}
+
+	public void clickJugar(ActionEvent ae) throws Exception {
+		AnchorPane escoger = FXMLLoader.load(getClass().getResource("/application/Cancha.fxml"));
+		Scene scene = new Scene(escoger);
+		cm.getStage().setScene(scene);
+		cm.getStage().show();
+	}
+	
+	public void clickUniforme(MouseEvent ae) {
+		if(selTeam == true) {
+			uniform.setOpacity(0.65);
+			local.setVisible(false);
+			visitante.setVisible(false);
+		}else {
+			Alert a = new Alert(AlertType.ERROR);
+			a.setContentText("no has escogido equipo");
+			a.show();
+		}
+	}
+	public void clickEquipo(MouseEvent ae) {
+		anterior.setVisible(false);
+		siguiente.setVisible(false);
+		equipo.setOpacity(0.65);
+		selTeam = true;
 	}
 }

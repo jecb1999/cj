@@ -13,21 +13,22 @@
             <Font size="29.0" />
          </font>
       </Label>
-      <Label fx:id="equipo" layoutX="230.0" layoutY="103.0" text="NOMBRE DE EQUIPO">
+      <Label fx:id="equipo" layoutX="230.0" layoutY="103.0" text="NOMBRE DE EQUIPO" onMouseClicked="#clickEquipo">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Button layoutX="416.0" layoutY="101.0" mnemonicParsing="false" onAction="#clicSiguiente" text="SIGUIENTE" />
-      <Button layoutX="113.0" layoutY="101.0" mnemonicParsing="false" onAction="#clickPrev" text="ANTERIOR" />
+      <Button layoutX="416.0" layoutY="101.0" mnemonicParsing="false" onAction="#clicSiguiente" text="SIGUIENTE" fx:id="siguiente"/>
+      <Button layoutX="113.0" layoutY="101.0" mnemonicParsing="false" onAction="#clickPrev" text="ANTERIOR" fx:id="anterior"/>
       <Label layoutX="171.0" layoutY="166.0" text="ELIGE EL UNIFORME" textFill="#c39928">
          <font>
             <Font size="29.0" />
          </font>
       </Label>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="201.0" layoutY="209.0" pickOnBounds="true" preserveRatio="true" fx:id="uniform"/>
-      <Button layoutX="113.0" layoutY="272.0" mnemonicParsing="false" onAction="#clickLocal" text="LOCAL" />
-      <Button layoutX="430.0" layoutY="272.0" mnemonicParsing="false" onAction="#clickVisitante" text="VISITANTE" />
-      <Button layoutX="275.0" layoutY="374.0" mnemonicParsing="false" onAction="#clickPrev" text="JUGAR" />
+      <ImageView fx:id="uniform" fitHeight="150.0" fitWidth="200.0" layoutX="201.0" layoutY="209.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#clickUniforme"/>
+      <Button layoutX="113.0" layoutY="272.0" mnemonicParsing="false" onAction="#clickLocal" text="LOCAL" fx:id="local"/>
+      <Button layoutX="430.0" layoutY="272.0" mnemonicParsing="false" onAction="#clickVisitante" text="VISITANTE" fx:id="visitante"/>
+      <Button layoutX="275.0" layoutY="374.0" mnemonicParsing="false" onAction="#clickJugar" text="JUGAR" />
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="MENU" onAction="#clickMenu"/>
    </children>
 </AnchorPane>

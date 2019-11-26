@@ -45,12 +45,28 @@ public class ControllerMenu implements Initializable {
 		return stageEscoger;
 	}
 	
+	public Main getMain() {
+		return main;
+	}
+	
 	public void clickForGame(ActionEvent ae) throws Exception {
 		AnchorPane escoger = FXMLLoader.load(getClass().getResource("/application/EscogerEquipos.fxml"));
 		Scene scene = new Scene(escoger);
 		main.getStage().close();
 		stageEscoger.setScene(scene);
 		stageEscoger.show();
+	}
+	
+	public void clickForRecords(ActionEvent ae) throws Exception{
+		AnchorPane escoger = FXMLLoader.load(getClass().getResource("/application/Records.fxml"));
+		Scene scene = new Scene(escoger);
+		main.getStage().close();
+		stageEscoger.setScene(scene);
+		stageEscoger.show();
+	}
+	
+	public void clickForSalir(ActionEvent ae) throws Exception{
+		main.getStage().close();
 	}
 
 }

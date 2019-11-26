@@ -7,5 +7,6 @@ public class GameUser extends Player {
 	public GameUser(int x, int y, String img) {
 		super(x, y, img);
 	}
+	
 
 }

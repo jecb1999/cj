@@ -1,5 +1,13 @@
 package model;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 public class Game {
 
 	private Score firstScore;
@@ -7,8 +15,9 @@ public class Game {
 	private Team firstTeam;
 
 	public Game() {
-
 		start();
+		tournament = new Tournament();
+		organizarEquipos();
 	}
 
 	public Team getFirstTeam() {
@@ -21,6 +30,59 @@ public class Game {
 			firstTeam = newTeam;
 		} else {
 			firstTeam.addTeam(newTeam);
+		}
+	}
+
+	public void organizarEquipos() {
+		if (firstTeam != null) {
+			Team act = firstTeam;
+			while (act != null) {
+				Team sig = act.getSig();
+				Team menor = act;
+				while (sig != null) {
+					if (sig.getName().compareTo(menor.getName()) <= 0) {
+						menor = sig;
+					}
+					sig = sig.getSig();
+				}
+				if (act.getPrev() != null) {
+					act.getPrev().setSig(menor);
+				} else {
+					firstTeam = menor;
+				}
+				if (menor.getSig() != null) {
+					menor.getSig().setPrev(act);
+				}
+				if (act.getSig() != null && menor == act.getSig()) {
+					menor.setPrev(act.getPrev());
+					act.setSig(menor.getSig());
+					menor.setSig(act);
+					act.setPrev(menor);
+					
+					
+				} else {
+					if (!menor.getName().equals(act.getName())) {
+					
+						if (menor.getPrev() != null) {
+							menor.getPrev().setSig(act);
+						}
+						if (act.getSig() != null) {
+							act.getSig().setPrev(menor);
+						}
+			
+						Team temp = menor.getSig();
+
+						menor.setSig(act.getSig());
+						act.setSig(temp);
+						Team temp2 = menor.getPrev();
+						menor.setPrev(act.getPrev());
+						act.setPrev(temp2);
+					}
+					
+				}
+				act = menor.getSig();
+			}
+
 		}
 	}
 
@@ -51,6 +113,7 @@ public class Game {
 	}
 
 	public void start() {
+
 		addTeam("Colombia");
 		addTeam("Uruguay");
 		addTeam("Mexico");
@@ -63,7 +126,48 @@ public class Game {
 		addTeam("Peru");
 		addUniform("Colombia", ".\\UniformeColombia.png");
 		addUniform("Colombia", ".\\UniformeColombiaV.jpg");
-
+		addUniform("Uruguay", ".\\UniformeUruguay.jpg");
+		addUniform("Uruguay", ".\\UniformeUruguayV.jpg");
+		addUniform("Mexico", ".\\UniformeMexico.jpg");
+		addUniform("Mexico", ".\\UniformeMexicoV.jpg");
+		addUniform("Argentina", ".\\UniformeArgentina.jpg");
+		addUniform("Argentina", ".\\UniformeArgentinaV.jpg");
+		addUniform("Ecuador", ".\\UniformeEcuador.jpg");
+		addUniform("Ecuador", ".\\UniformeEcuadorV.jpg");
+		addUniform("Venezuela", ".\\UniformeVenezuela.jpg");
+		addUniform("Venezuela", ".\\UniformeVenezuelaV.jpg");
+		addUniform("Brazil", ".\\UniformeBrazil.jpg");
+		addUniform("Brazil", ".\\UniformeBrazilV.jpg");
+		addUniform("Paraguay", ".\\UniformeParaguay.jpg");
+		addUniform("Paraguay", ".\\UniformeParaguayV.jpg");
+		addUniform("USA", ".\\UniformeUSA.jpg");
+		addUniform("USA", ".\\UniformeUSAV.jpg");
+		addUniform("Peru", ".\\UniformePeru.jpg");
+		addUniform("Peru", ".\\UniformePeruV.jpg");
 	}
 
+	public void serializableLastTournament() {
+		try {
+			FileOutputStream fs = new FileOutputStream(".\\LastTournament");
+			ObjectOutputStream os = new ObjectOutputStream(fs);
+			os.writeObject(tournament);
+			os.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void readLastTournament() {
+		try {
+
+			File f = new File(".\\" + "Serializable");
+			FileInputStream fis = new FileInputStream(f);
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			tournament = (Tournament) ois.readObject();
+			ois.close();
+			fis.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
