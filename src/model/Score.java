@@ -5,14 +5,14 @@ import java.util.ArrayList;
 public class Score {
 
 	private String name;
-	private int Score;
+	private int score;
 	private Score right;
 	private Score left;
 
 	public Score(String name, int score) {
 		super();
 		this.name = name;
-		Score = score;
+		this.score = score;
 	}
 
 	public String getName() {
@@ -24,11 +24,11 @@ public class Score {
 	}
 
 	public int getScore() {
-		return Score;
+		return score;
 	}
 
 	public void setScore(int score) {
-		Score = score;
+		this.score = score;
 	}
 
 	public Score getRight() {
@@ -81,7 +81,7 @@ public class Score {
 
 	@Override
 	public String toString() {
-		return  "\t" + name + "\t\t\t\t" + Score;
+		return  " " + name + ": " + score;
 	}
 
 

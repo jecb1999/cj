@@ -11,6 +11,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import Exceptions.ExceptionNotPlayer;
+
 public class Game {
 
 	private Score firstScore;
@@ -118,11 +120,21 @@ public class Game {
 	public void start() {
 		loadTeams();
 		
-		addScore("jhgjgjgjja", 25);
-		addScore("d", 15);
-		addScore("f", 45);
-		addScore("r", 65);
-		addScore("t", 5);
+		addScore("camilo", 25);
+		addScore("jaime", 15);
+		addScore("ivan", 45);
+		addScore("pedro", 65);
+		addScore("alberto", 5);
+		addScore("camila", 35);
+		addScore("jaimee", 75);
+		addScore("ivann", 48);
+		addScore("pedroo", 95);
+		addScore("albertoo", 2);
+		addScore("camiloa", 23);
+		addScore("jaimea", 17);
+		addScore("ivana", 40);
+		addScore("pedroa", 25);
+		addScore("albertoa", 1);
 		
 	}
 
@@ -231,7 +243,7 @@ public class Game {
 		return lista;
 	}
 
-	public ArrayList<Score> odenarPorNombre() {
+	public ArrayList<Score> ordenarPorNombre() {
 		ArrayList<Score> e = ordenarPorPuntaje();
 		for (int i = 0; i < e.size(); i++) {
 			for (int j = i; j > 0 && (e.get(j - 1).getName().compareTo(e.get(j).getName())) > 0; j--) {
@@ -241,6 +253,30 @@ public class Game {
 			}
 		}
 		return e;
+	}
+	
+	public String binarioPuntajeNombre(String a) throws ExceptionNotPlayer {
+		ArrayList<Score> e = ordenarPorNombre();
+		String msg = "";
+		boolean encontrado = false;
+		int inicio = 0;
+		int fin = e.size()-1;
+		while(inicio <= fin && !encontrado ) {
+			int medio = (inicio + fin)/ 2;
+			if(e.get(medio).getName().equals(a)) {
+				encontrado = true;
+				msg = e.get(medio).toString();
+			} else if(e.get(medio).getName().compareTo(a) > 0) {
+				fin = medio -1;
+			} else if(e.get(medio).getName().compareTo(a) < 0) {
+				inicio = medio +1;
+			} 
+		}
+		if (!encontrado) {
+			throw new ExceptionNotPlayer();
+		}
+		
+		return msg;
 	}
 		
 	public void addTeamJugador(Team team) {
