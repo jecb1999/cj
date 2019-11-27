@@ -8,7 +8,6 @@ public class Match {
 	private GameUser gameUser;
 
 	public Match() {
-
 	}
 
 }

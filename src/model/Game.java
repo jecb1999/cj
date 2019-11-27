@@ -20,10 +20,8 @@ public class Game {
 
 	public Game() {
 		start();
-		tournament = new Tournament();
 		organizarEquipos();
-		listaSorteo = hacerListaTeam();
-		makeTournament();
+
 	}
 
 	public Team getFirstTeam() {
@@ -255,5 +253,11 @@ public class Game {
 			}
 		}
 		return e;
+	}
+		
+	public void addTeamJugador(Team team) {
+		tournament = new Tournament(team);
+		listaSorteo = hacerListaTeam();
+		makeTournament();
 	}
 }
