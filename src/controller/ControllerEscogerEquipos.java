@@ -123,5 +123,6 @@ public class ControllerEscogerEquipos implements Initializable {
 		siguiente.setVisible(false);
 		equipo.setOpacity(0.65);
 		selTeam = true;
+		cm.getGame().addTeamJugador(cm.getGame().searchTeam(equipo.getText()));
 	}
 }

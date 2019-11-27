@@ -18,10 +18,8 @@ public class Game {
 
 	public Game() {
 		start();
-		tournament = new Tournament();
 		organizarEquipos();
-		listaSorteo = hacerListaTeam();
-		makeTournament();
+
 	}
 
 	public Team getFirstTeam() {
@@ -206,9 +204,9 @@ public class Game {
 	public ArrayList<Team> getListaSorteo() {
 		return listaSorteo;
 	}
-	
+
 	public void addPosition(Team team1, Team team2) {
-		tournament.addPosition(team1,team2);
+		tournament.addPosition(team1, team2);
 	}
 
 	public void makeTournament() {
@@ -225,20 +223,26 @@ public class Game {
 			}
 			for (int i = 0; i < selected.size(); i++) {
 				if (selected.get(i) == team1) {
-					while (selected.get(i) == team1 ) {
+					while (selected.get(i) == team1) {
 						team1 = (int) (Math.random() * max) + 1;
 					}
 				}
-				if (selected.get(i) == team2|| team1 == team2) {
+				if (selected.get(i) == team2 || team1 == team2) {
 					while (selected.get(i) == team2) {
 						team2 = (int) (Math.random() * max) + 1;
 					}
 				}
 			}
-			addPosition(listaSorteo.get(team1),listaSorteo.get(team2));
+			addPosition(listaSorteo.get(team1), listaSorteo.get(team2));
 			selected.add(team1);
 			selected.add(team2);
 			counter++;
 		}
+	}
+
+	public void addTeamJugador(Team team) {
+		tournament = new Tournament(team);
+		listaSorteo = hacerListaTeam();
+		makeTournament();
 	}
 }
