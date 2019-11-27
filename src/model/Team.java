@@ -85,5 +85,8 @@ public class Team {
 		}
 	}
 
+	public String toString() {
+		return name;
+	}
 
 }

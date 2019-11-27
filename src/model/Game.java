@@ -197,27 +197,15 @@ public class Game {
 
 	public void makeTournament() {
 		ArrayList<Integer> selected = new ArrayList<Integer>();
-		int max = listaSorteo.size() - 1;
+		int max = listaSorteo.size();
 		int counter = 0;
 		while (counter < 8) {
-			int team1 = (int) (Math.random() * max) + 1;
-			int team2 = (int) (Math.random() * max) + 1;
-			if (team1 == team2) {
-				while (team1 == team2) {
-					team2 = (int) (Math.random() * max) + 1;
-				}
-			}
-			for (int i = 0; i < selected.size(); i++) {
-				if (selected.get(i) == team1) {
-					while (selected.get(i) == team1) {
-						team1 = (int) (Math.random() * max) + 1;
-					}
-				}
-				if (selected.get(i) == team2 || team1 == team2) {
-					while (selected.get(i) == team2) {
-						team2 = (int) (Math.random() * max) + 1;
-					}
-				}
+			int team1 = (int) (Math.random() * max) ;
+			int team2 = (int) (Math.random() * max) ;
+			while(selected.contains(team1)) {
+				 team1 = (int) (Math.random() * max) ;
+			}while(team1 == team2 || selected.contains(team2)) {
+				team2 = (int) (Math.random() * max) ;
 			}
 			addPosition(listaSorteo.get(team1), listaSorteo.get(team2));
 			selected.add(team1);
@@ -259,5 +247,13 @@ public class Game {
 		tournament = new Tournament(team);
 		listaSorteo = hacerListaTeam();
 		makeTournament();
+	}
+	
+	public Position getPosition() {
+		return tournament.getFirstPosition();
+	}
+	
+	public Team getTeamGanador() {
+		return tournament.resultadosPartidos();
 	}
 }

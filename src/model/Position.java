@@ -6,6 +6,7 @@ public class Position {
 	private Team team1;
 	private Team team2;
 	private Team teamGanador;
+	private Position father;
 	private Position right;
 	private Position left;
 	private Match match;
@@ -77,24 +78,27 @@ public class Position {
 	}
 
 	public boolean addPosition(Team team1, Team team2) {
+
 		boolean add = false;
 		if (left == null && right == null) {
-			if (team1 == null && team2 == null) {
+			if (this.team1 == null && this.team2 == null) {
+				
 				setTeam1(team1);
 				setTeam2(team2);
 				add = true;
+			}
+		} else {
+			if (left.addPosition(team1, team2)) {
+				add = true;
 			} else {
-				if (left.addPosition(team1, team2)) {
-					add = true;
-				} else {
-					add = right.addPosition(team1, team2);
-				}
+				add = right.addPosition(team1, team2);
 			}
 		}
+
 		return add;
 	}
 
-	public Team resultadoPartidos(Position position) {
+	public Team resultadoPartidos() {
 		Team ganador = null;
 		int numGanador = (int) (Math.random() * 2) + 1;
 		if (numGanador == 1) {
@@ -113,17 +117,24 @@ public class Position {
 			}
 		} else {
 			if (left.getTeamGanador() != null && right.getTeamGanador() != null && teamGanador == null) {
-				ret =  this;
+				ret = this;
 
 			} else {
-				if (left.posSig() != null) {
-					ret = left;
-				} else {
+				ret = left.posSig();
+				if (ret == null) {
 					ret = right.posSig();
-				}
+				} 
 			}
 		}
 		return ret;
+	}
+
+	public Position getFather() {
+		return father;
+	}
+
+	public void setFather(Position father) {
+		this.father = father;
 	}
 
 }

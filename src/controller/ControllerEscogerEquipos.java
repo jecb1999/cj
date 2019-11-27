@@ -101,7 +101,7 @@ public class ControllerEscogerEquipos implements Initializable {
 	}
 
 	public void clickJugar(ActionEvent ae) throws Exception {
-		AnchorPane escoger = FXMLLoader.load(getClass().getResource("/application/Cancha.fxml"));
+		AnchorPane escoger = FXMLLoader.load(getClass().getResource("/application/ArbolPintado.fxml"));
 		Scene scene = new Scene(escoger);
 		cm.getStage().setScene(scene);
 		cm.getStage().show();

@@ -21,6 +21,10 @@ public class Tournament implements Serializable {
 	public void setTeamJugador(Team team) {
 		teamJugador = team;
 	}
+	
+	public Position getFirstPosition() {
+		return firstPosition;
+	}
 
 	public void anhadirHijos(Position pos, int nivel) {
 		if (nivel < 3) {
@@ -35,26 +39,36 @@ public class Tournament implements Serializable {
 			}
 			pos.setRight(prev1);
 			pos.setLeft(prev2);
+			prev1.setFather(pos);
+			prev2.setFather(pos);
 			anhadirHijos(prev1, nivel + 1);
 			anhadirHijos(prev2, nivel + 1);
 		} else {
 			pos.setFase("octavos");
 		}
 	}
-	
-	public Position posSig() {
-		return firstPosition.posSig();
-	}
 
-//	public Team resultadosPartidos() {
-//		Team ganador = null;
-//		if (!firstPosition.getTeam1().getName().equals(teamJugador.getName())
-//				|| !firstPosition.getTeam2().getName().equals(teamJugador.getName())) {
-//			ganador = firstPosition.resultadoPartidos();
-//		}else {
-//			
-//		}
-//		return ganador;
+//	public Position posSig() {
+//		return firstPosition.posSig();
 //	}
+
+	public Team resultadosPartidos() {
+		Team ganador = null;
+		Position pos = firstPosition.posSig();
+		System.out.println(pos.getFase());
+		if (pos != null && !pos.getTeam1().getName().equals(teamJugador.getName())
+				|| !pos.getTeam2().getName().equals(teamJugador.getName())) {
+			ganador = pos.resultadoPartidos();
+			pos.setTeamGanador(ganador);
+			if(pos.getFather() != null) {
+				if(pos.getFather().getTeam1() == null) {
+					pos.getFather().setTeam1(ganador);
+				}else {
+					pos.getFather().setTeam2(ganador);
+				}
+			}
+		}
+		return ganador;
+	}
 
 }

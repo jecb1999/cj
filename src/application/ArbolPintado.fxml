@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControllerArbolPintado">
+   <children>
+      <Canvas fx:id="arbolPintado" height="255.0" layoutX="86.0" layoutY="55.0" width="428.0" />
+      <Button layoutX="274.0" layoutY="313.0" mnemonicParsing="false" text="JUGAR" onAction="#clickJugar" fx:id="jugar"/>
+   </children>
+</AnchorPane>
