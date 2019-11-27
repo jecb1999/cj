@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControllerRecords">
    <children>
@@ -13,6 +14,12 @@
             <Font name="System Italic" size="29.0" />
          </font>
       </Label>
-      <Button layoutX="275.0" layoutY="361.0" mnemonicParsing="false" text="MENU" onAction="#clickMenu"/>
+      <Button layoutX="275.0" layoutY="361.0" mnemonicParsing="false" onAction="#clickMenu" text="MENU" />
+      <CheckBox layoutX="50.0" layoutY="125.0" mnemonicParsing="false" onAction="#ordenarPorNombre" text="por nombre" />
+      <CheckBox layoutX="50.0" layoutY="168.0" mnemonicParsing="false" onAction="#ordenarPorPuntaje" text="por puntaje" />
+      <Label layoutX="50.0" layoutY="81.0" text="Ordenar por:" />
+      <Label layoutX="293.0" layoutY="57.0" text="Nombre" />
+      <Label layoutX="412.0" layoutY="57.0" text="Puntaje" />
+      <ListView fx:id="puntaje" layoutX="275.0" layoutY="85.0" prefHeight="236.0" prefWidth="198.0" />
    </children>
 </AnchorPane>

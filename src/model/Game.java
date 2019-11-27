@@ -1,9 +1,11 @@
 package model;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -116,56 +118,40 @@ public class Game {
 	}
 
 	public void start() {
+		loadTeams();
+		
+		addScore("jhgjgjgjja", 25);
+		addScore("d", 15);
+		addScore("f", 45);
+		addScore("r", 65);
+		addScore("t", 5);
+		
+	}
 
-		addTeam("Colombia");
-		addTeam("Uruguay");
-		addTeam("Mexico");
-		addTeam("Argentina");
-		addTeam("Ecuador");
-		addTeam("Venezuela");
-		addTeam("Brazil");
-		addTeam("Paraguay");
-		addTeam("USA");
-		addTeam("Peru");
-		addTeam("España");
-		addTeam("Alemania");
-		addTeam("Cuba");
-		addTeam("Jamaica");
-		addTeam("Canada");
-		addTeam("Panama");
-		addUniform("Colombia", ".\\UniformeColombia.png");
-		addUniform("Colombia", ".\\UniformeColombiaV.jpg");
-		addUniform("Uruguay", ".\\UniformeUruguay.jpg");
-		addUniform("Uruguay", ".\\UniformeUruguayV.jpg");
-		addUniform("Mexico", ".\\UniformeMexico.jpg");
-		addUniform("Mexico", ".\\UniformeMexicoV.jpg");
-		addUniform("Argentina", ".\\UniformeArgentina.jpg");
-		addUniform("Argentina", ".\\UniformeArgentinaV.jpg");
-		addUniform("Ecuador", ".\\UniformeEcuador.jpg");
-		addUniform("Ecuador", ".\\UniformeEcuadorV.jpg");
-		addUniform("Venezuela", ".\\UniformeVenezuela.jpg");
-		addUniform("Venezuela", ".\\UniformeVenezuelaV.jpg");
-		addUniform("Brazil", ".\\UniformeBrazil.jpg");
-		addUniform("Brazil", ".\\UniformeBrazilV.jpg");
-		addUniform("Paraguay", ".\\UniformeParaguay.jpg");
-		addUniform("Paraguay", ".\\UniformeParaguayV.jpg");
-		addUniform("USA", ".\\UniformeUSA.jpg");
-		addUniform("USA", ".\\UniformeUSAV.jpg");
-		addUniform("Peru", ".\\UniformePeru.jpg");
-		addUniform("Peru", ".\\UniformePeruV.jpg");
-		addUniform("España", ".\\UniformeEspaña.jpg");
-		addUniform("España", ".\\UniformeEspañaV.jpg");
-		addUniform("Alemania", ".\\UniformeAlemania.jpg");
-		addUniform("Alemania", ".\\UniformeAlemaniaV.jpg");
-		addUniform("Panama", ".\\UniformePanama.jpg");
-		addUniform("Panama", ".\\UniformePanamaV.jpg");
-		addUniform("Cuba", ".\\UniformeCuba.jpg");
-		addUniform("Cuba", ".\\UniformeCubaV.jpg");
-		addUniform("Jamaica", ".\\UniformeJamaica.jpg");
-		addUniform("Jamaica", ".\\UniformeJamaicaV.jpg");
-		addUniform("Canada", ".\\UniformeCanada.jpg");
-		addUniform("Canada", ".\\UniformeCanadaV.jpg");
+	public void loadTeams() {
+		File a = new File("./data/Teams.txt");
+		try {
+			FileReader fr = new FileReader(a);
+			BufferedReader br = new BufferedReader(fr);
+			br.readLine();
+			String cadena = br.readLine();
+			while (!cadena.equals("#Uniforms")) {
+				addTeam(cadena);
+				cadena = br.readLine();
+			}
+			cadena = br.readLine();
+			while (cadena != null && !cadena.isEmpty()) {
+				String[] cadena1 = cadena.split(";");
+				addUniform(cadena1[0], cadena1[1]);
+				cadena = br.readLine();
+			}
+			br.close();
+			fr.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
 
+		}
 	}
 
 	public void serializableLastTournament() {
@@ -206,9 +192,9 @@ public class Game {
 	public ArrayList<Team> getListaSorteo() {
 		return listaSorteo;
 	}
-	
+
 	public void addPosition(Team team1, Team team2) {
-		tournament.addPosition(team1,team2);
+		tournament.addPosition(team1, team2);
 	}
 
 	public void makeTournament() {
@@ -225,20 +211,49 @@ public class Game {
 			}
 			for (int i = 0; i < selected.size(); i++) {
 				if (selected.get(i) == team1) {
-					while (selected.get(i) == team1 ) {
+					while (selected.get(i) == team1) {
 						team1 = (int) (Math.random() * max) + 1;
 					}
 				}
-				if (selected.get(i) == team2|| team1 == team2) {
+				if (selected.get(i) == team2 || team1 == team2) {
 					while (selected.get(i) == team2) {
 						team2 = (int) (Math.random() * max) + 1;
 					}
 				}
 			}
-			addPosition(listaSorteo.get(team1),listaSorteo.get(team2));
+			addPosition(listaSorteo.get(team1), listaSorteo.get(team2));
 			selected.add(team1);
 			selected.add(team2);
 			counter++;
 		}
+	}
+
+	public void addScore(String n, int e) {
+		Score pri = new Score(n, e);
+		if (firstScore == null) {
+			firstScore = pri;
+		} else {
+			firstScore.addScore(pri);
+		}
+	}
+
+	public ArrayList<Score> ordenarPorPuntaje() {
+		ArrayList<Score> lista = new ArrayList<Score>();
+		if (firstScore != null) {
+			firstScore.tenScore(lista);
+		}
+		return lista;
+	}
+
+	public ArrayList<Score> odenarPorNombre() {
+		ArrayList<Score> e = ordenarPorPuntaje();
+		for (int i = 0; i < e.size(); i++) {
+			for (int j = i; j > 0 && (e.get(j - 1).getName().compareTo(e.get(j).getName())) > 0; j--) {
+				Score tmp = e.get(j);
+				e.set(j, e.get(j - 1));
+				e.set(j - 1, tmp);
+			}
+		}
+		return e;
 	}
 }
