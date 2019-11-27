@@ -10,4 +10,10 @@ public class Tournament implements Serializable {
 
 	}
 
+	public void addPosition(Team team1, Team team2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }
