@@ -2,28 +2,35 @@ package threads;
 
 import controller.ControllerCancha;
 import model.Clock;
+import model.Match;
+import model.Position;
 
 public class ClockThread extends Thread {
 
 	private ControllerCancha cc;
-	private Clock c;
+	private Match m;
 
-	public ClockThread(ControllerCancha cc, Clock c) {
+	public ClockThread(ControllerCancha cc,Match m) {
 		this.cc = cc;
-		this.c = c;
+		this.m = m;
 	}
 
 	public void run() {
 		try {
-			boolean noEnd = true;
-			while (noEnd) {
+			while (!m.stopGame()) {
 				sleep(1000);
-				c.time();
+				m.getClock().time();
 				cc.moveTime();
 			}
+			m.endGame();
+			cc.setVisibility();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
 	}
 
 }

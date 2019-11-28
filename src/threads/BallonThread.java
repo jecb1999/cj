@@ -16,8 +16,7 @@ public class BallonThread extends Thread{
 	
 	public void run() {
 		try {
-			boolean noEnd = true;
-			while(noEnd) {
+			while(!m.stopGame()) {
 			sleep(100);
 			cc.moveBallon();
 			m.moverBall();

@@ -2,7 +2,7 @@ package model;
 
 public class Match {
 
-	public final static int w = 50;
+	public final static int w = 90;
 
 	private Clock clock;
 	private Ball ball;
@@ -12,6 +12,7 @@ public class Match {
 	private int golesTeam2;
 	private Team team1;
 	private Team team2;
+	private Position pos;
 
 	public Match(Clock clock, Ball ball, Opponent opponent, GameUser gameUser) {
 		super();
@@ -117,6 +118,35 @@ public class Match {
 		if(gameUser.getY() <= 340 - w) {
 		gameUser.setY(gameUser.getY()+10);
 		}
+	}
+	
+	public Team ganadorPartido() {
+		if(golesTeam1 > golesTeam2) {
+			return team1;
+		}else {
+			return team2;
+		}
+	}
+	
+	public boolean stopGame() {
+		boolean ret = false;
+		if(clock.getSeconds()>20) {
+			ret = true;
+		}
+		return ret;
+	}
+
+	public Position getPos() {
+		return pos;
+	}
+
+	public void setPos(Position pos) {
+		this.pos = pos;
+	}
+
+	public void endGame() {
+		pos.setTeamGanador(ganadorPartido());
+		
 	}
 
 }

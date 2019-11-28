@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -17,5 +18,6 @@
       <Text fx:id="gt2" layoutX="300.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="gt2" />
       <Text fx:id="t1" layoutX="196.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="col" />
       <Text fx:id="t2" layoutX="357.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="per" />
+      <Button layoutX="258.0" layoutY="300.0" mnemonicParsing="false" text="CONTINUAR" fx:id="continuar" onAction="#arbolPintado"/>
    </children>
 </AnchorPane>

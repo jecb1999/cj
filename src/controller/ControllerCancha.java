@@ -2,19 +2,26 @@ package controller;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import model.Match;
 import threads.BallonThread;
@@ -48,6 +55,8 @@ public class ControllerCancha implements Initializable {
 	private Text t1;
 	@FXML 
 	private Text t2;
+	@FXML
+	private Button continuar;
 	
 
 	@Override
@@ -61,12 +70,13 @@ public class ControllerCancha implements Initializable {
 		bt = new BallonThread(this, match);
 		bt.start();
 		segundos.setText("0");
-		ct = new ClockThread(this, match.getClock());
-		ct.start();
+		ct = new ClockThread(this, match);
+		ct.start();		
 		op = new OpponentThread(this, match.getOpponent());
 		op.start();
 		mt = new MarcadorThread(this, match);
 		mt.start();
+		continuar.setVisible(false);
 		try {
 			Image image = new Image(new FileInputStream(".\\img\\Cancha.png"));
 			cancha.setImage(image);
@@ -74,7 +84,7 @@ public class ControllerCancha implements Initializable {
 			jugador.setImage(image1);
 			Image image2 = new Image(new FileInputStream(match.getOpponent().getImg()));
 			oponente.setImage(image2);
-			Image image3 = new Image(new FileInputStream(".\\ball.png"));
+			Image image3 = new Image(new FileInputStream(".\\img\\ball.png"));
 			balon.setX(match.getBall().getX());
 			balon.setY(match.getBall().getY());
 			balon.setImage(image3);
@@ -90,7 +100,6 @@ public class ControllerCancha implements Initializable {
 				}
 			jugador.setY(match.getGameUser().getY());
 		});
-
 	}
 
 	public void moveBallon() {
@@ -110,6 +119,16 @@ public class ControllerCancha implements Initializable {
 		gt2.setText(Integer.toString(match.getGolesTeam2()));
 		gt1.setText(Integer.toString(match.getGolesTeam1()));
 	}
-		
+	
+	public void arbolPintado(ActionEvent ae) throws Exception {
+		AnchorPane escoger = FXMLLoader.load(getClass().getResource("/application/ArbolPintado.fxml"));
+		Scene scene = new Scene(escoger);
+		cm.getStage().setScene(scene);
+		cm.getStage().show();
+	}
+	
+	public void setVisibility() {
+		continuar.setVisible(true);
+	}
 
 }

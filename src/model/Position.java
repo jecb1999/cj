@@ -75,6 +75,13 @@ public class Position {
 
 	public void setTeamGanador(Team teamGanador) {
 		this.teamGanador = teamGanador;
+		if (getFather() != null) {
+			if (getFather().getTeam1() == null) {
+				getFather().setTeam1(teamGanador);
+			} else {
+				getFather().setTeam2(teamGanador);
+			}
+		}
 	}
 
 	public boolean addPosition(Team team1, Team team2) {

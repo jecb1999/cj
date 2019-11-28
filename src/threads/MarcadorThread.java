@@ -15,8 +15,7 @@ public class MarcadorThread extends Thread{
 	
 	public void run() {
 		try {
-			boolean noEnd = true;
-			while(noEnd) {
+			while(!m.stopGame()) {
 			sleep(300);
 			cc.moveMarcador();
 			}
