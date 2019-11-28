@@ -14,7 +14,7 @@ public class Team {
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setSig(Team nuevo) {
 		sig = nuevo;
 	}
@@ -51,36 +51,36 @@ public class Team {
 			return null;
 		}
 	}
-	
+
 	public Team getSig() {
 		return sig;
 	}
-	
+
 	public Team getPrev() {
 		return prev;
 	}
 
 	public void addUniform(Uniform newUniform) {
-		if(firstUniform == null) {
+		if (firstUniform == null) {
 			firstUniform = newUniform;
-		}else {
+		} else {
 			firstUniform.addUniform(newUniform);
 		}
-		
+
 	}
-	
+
 	public void setPrev(Team newTeam) {
 		prev = newTeam;
 	}
 
 	public Uniform searchUniform(String img) {
-		if(firstUniform != null) {
-			if(firstUniform.getImg().equals(img)) {
+		if (firstUniform != null) {
+			if (firstUniform.getImg().equals(img)) {
 				return firstUniform;
-			}else {
+			} else {
 				return firstUniform.searchUniform(img);
 			}
-		}else {
+		} else {
 			return null;
 		}
 	}

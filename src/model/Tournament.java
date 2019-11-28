@@ -71,6 +71,8 @@ public class Tournament implements Serializable {
 		}
 		return ret;
 	}
+	
+	
 
 	public Match addMatch(Position pos) {
 		Team jugador = null;

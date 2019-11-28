@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -13,22 +14,26 @@
             <Font size="29.0" />
          </font>
       </Label>
-      <Label fx:id="equipo" layoutX="230.0" layoutY="103.0" text="NOMBRE DE EQUIPO" onMouseClicked="#clickEquipo">
+      <Label fx:id="equipo" layoutX="230.0" layoutY="103.0" onMouseClicked="#clickEquipo" text="NOMBRE DE EQUIPO">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Button layoutX="416.0" layoutY="101.0" mnemonicParsing="false" onAction="#clicSiguiente" text="SIGUIENTE" fx:id="siguiente"/>
-      <Button layoutX="113.0" layoutY="101.0" mnemonicParsing="false" onAction="#clickPrev" text="ANTERIOR" fx:id="anterior"/>
+      <Button fx:id="siguiente" layoutX="416.0" layoutY="101.0" mnemonicParsing="false" onAction="#clicSiguiente" text="SIGUIENTE" />
+      <Button fx:id="anterior" layoutX="113.0" layoutY="101.0" mnemonicParsing="false" onAction="#clickPrev" text="ANTERIOR" />
       <Label layoutX="171.0" layoutY="166.0" text="ELIGE EL UNIFORME" textFill="#c39928">
          <font>
             <Font size="29.0" />
          </font>
       </Label>
-      <ImageView fx:id="uniform" fitHeight="150.0" fitWidth="200.0" layoutX="201.0" layoutY="209.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#clickUniforme"/>
-      <Button layoutX="113.0" layoutY="272.0" mnemonicParsing="false" onAction="#clickLocal" text="LOCAL" fx:id="local"/>
-      <Button layoutX="430.0" layoutY="272.0" mnemonicParsing="false" onAction="#clickVisitante" text="VISITANTE" fx:id="visitante"/>
+      <ImageView fx:id="uniform" fitHeight="150.0" fitWidth="200.0" layoutX="201.0" layoutY="209.0" onMouseClicked="#clickUniforme" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="local" layoutX="113.0" layoutY="272.0" mnemonicParsing="false" onAction="#clickLocal" text="LOCAL" />
+      <Button fx:id="visitante" layoutX="430.0" layoutY="272.0" mnemonicParsing="false" onAction="#clickVisitante" text="VISITANTE" />
       <Button layoutX="275.0" layoutY="374.0" mnemonicParsing="false" onAction="#clickJugar" text="JUGAR" />
-      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="MENU" onAction="#clickMenu"/>
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#clickMenu" text="MENU" />
+      <Label layoutX="26.0" layoutY="139.0" text="Buscar Equipo:" />
+      <TextField fx:id="busca" layoutX="26.0" layoutY="166.0" prefHeight="25.0" prefWidth="92.0" />
+      <Button layoutX="26.0" layoutY="200.0" mnemonicParsing="false" onAction="#buscarEquipo" text="Buscar" />
+      <Label fx:id="encontro" layoutX="26.0" layoutY="237.0" />
    </children>
 </AnchorPane>
