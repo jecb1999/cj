@@ -9,7 +9,7 @@ Brazil
 Paraguay
 USA
 Peru
-España
+Espana
 Alemania
 Cuba
 Jamaica
@@ -36,8 +36,8 @@ USA;.\\img\\UniformeUSA.jpg
 USA;.\\img\\UniformeUSAV.jpg
 Peru;.\\img\\UniformePeru.jpg
 Peru;.\\img\\UniformePeruV.jpg
-España;.\\img\\UniformeEspaña.jpg
-España;.\\img\\UniformeEspañaV.jpg
+Espana;.\\img\\UniformeEspana.jpg
+Espana;.\\img\\UniformeEspanaV.jpg
 Alemania;.\\img\\UniformeAlemania.jpg
 Alemania;.\\img\\UniformeAlemaniaV.jpg
 Panama;.\\img\\UniformePanama.jpg
