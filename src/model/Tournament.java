@@ -86,9 +86,11 @@ public class Tournament implements Serializable {
 		}
 		Clock c = new Clock();
 		Ball b = new Ball(200, 200, "ball.jpg");
-		GameUser gu = new GameUser(20, 20, jugador.getName() + "Local.png");
-		Opponent op = new Opponent(20, 20, oponente.getName() + "Local.png");
+		GameUser gu = new GameUser(30, 0, jugador.getName() + "Local.png");
+		Opponent op = new Opponent(450, 20, oponente.getName() + "Local.png");
 		Match nuevoM = new Match(c, b, op, gu);
+		nuevoM.setTeam1(jugador);
+		nuevoM.setTeam2(oponente);
 		pos.setMatch(nuevoM);
 		return nuevoM;
 	}

@@ -2,12 +2,16 @@ package model;
 
 public class Match {
 
+	public final static int w = 50;
+
 	private Clock clock;
 	private Ball ball;
 	private Opponent opponent;
 	private GameUser gameUser;
 	private int golesTeam1;
 	private int golesTeam2;
+	private Team team1;
+	private Team team2;
 
 	public Match(Clock clock, Ball ball, Opponent opponent, GameUser gameUser) {
 		super();
@@ -49,6 +53,58 @@ public class Match {
 
 	public void setGameUser(GameUser gameUser) {
 		this.gameUser = gameUser;
+	}
+
+	public int getGolesTeam1() {
+		return golesTeam1;
+	}
+
+	public void setGolesTeam1(int golesTeam1) {
+		this.golesTeam1 = golesTeam1;
+	}
+
+	public int getGolesTeam2() {
+		return golesTeam2;
+	}
+
+	public void setGolesTeam2(int golesTeam2) {
+		this.golesTeam2 = golesTeam2;
+	}
+
+	public Team getTeam1() {
+		return team1;
+	}
+
+	public void setTeam1(Team team1) {
+		this.team1 = team1;
+	}
+
+	public Team getTeam2() {
+		return team2;
+	}
+
+	public void setTeam2(Team team2) {
+		this.team2 = team2;
+	}
+
+	public void moverBall() {
+		ball.mover();
+		if (ball.getX() > 600 - 90) {
+			golesTeam1++;
+		}
+		if (ball.getX() < 0) {
+			golesTeam2++;
+		}
+		rebote();
+	}
+
+	public void rebote() {
+		if (ball.getX() + w >= opponent.getX() && opponent.getY() <= ball.getY() && opponent.getY()+w >= ball.getY()) {
+			ball.setVectX(-Math.abs(ball.getVectX()));
+		}
+		if(ball.getX() <= gameUser.getX()+w && gameUser.getY() <= ball.getY() && gameUser.getY()+w >= ball.getY()) {
+			ball.setVectX(Math.abs(ball.getVectX()));
+		}
 	}
 
 }

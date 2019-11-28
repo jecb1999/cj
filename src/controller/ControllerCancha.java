@@ -16,6 +16,7 @@ import javafx.scene.text.Text;
 import model.Match;
 import threads.BallonThread;
 import threads.ClockThread;
+import threads.MarcadorThread;
 import threads.OpponentThread;
 
 public class ControllerCancha implements Initializable {
@@ -24,6 +25,7 @@ public class ControllerCancha implements Initializable {
 	private Match match;
 	private BallonThread bt;
 	private ClockThread ct;
+	private MarcadorThread mt;
 	private OpponentThread op;
 	@FXML
 	private ImageView jugador;
@@ -35,19 +37,32 @@ public class ControllerCancha implements Initializable {
 	private ImageView cancha;
 	@FXML
 	private Text segundos;
+	@FXML
+	private Text gt1;
+	@FXML
+	private Text gt2;
+	@FXML
+	private Text t1;
+	@FXML 
+	private Text t2;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		cm = new ControllerMenu();
 		match = cm.getGame().getMatch();
-		bt = new BallonThread(this, match.getBall());
+		t1.setText(match.getTeam1().getName());
+		t2.setText(match.getTeam2().getName());
+		gt1.setText("0");
+		gt2.setText("0");
+		bt = new BallonThread(this, match);
 		bt.start();
 		segundos.setText("0");
 		ct = new ClockThread(this, match.getClock());
 		ct.start();
 		op = new OpponentThread(this, match.getOpponent());
 		op.start();
-		
+		mt = new MarcadorThread(this, match);
+		mt.start();
 		try {
 			Image image = new Image(new FileInputStream(".\\img\\Cancha.png"));
 			cancha.setImage(image);
@@ -77,6 +92,11 @@ public class ControllerCancha implements Initializable {
 	
 	public void moveOpponent() {
 		oponente.setY(match.getOpponent().getY());
+	}
+	
+	public void moveMarcador() {
+		gt2.setText(Integer.toString(match.getGolesTeam2()));
+		gt1.setText(Integer.toString(match.getGolesTeam1()));
 	}
 
 }

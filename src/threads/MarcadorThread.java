@@ -1,15 +1,14 @@
 package threads;
 
 import controller.ControllerCancha;
-import model.Ball;
 import model.Match;
 
-public class BallonThread extends Thread{
+public class MarcadorThread extends Thread{
 	
 	private ControllerCancha cc;
 	private Match m;
 	
-	public BallonThread(ControllerCancha cc,Match m) {
+	public MarcadorThread (ControllerCancha cc, Match m) {
 		this.cc = cc;
 		this.m = m;
 	}
@@ -18,9 +17,8 @@ public class BallonThread extends Thread{
 		try {
 			boolean noEnd = true;
 			while(noEnd) {
-			sleep(100);
-			cc.moveBallon();
-			m.moverBall();
+			sleep(300);
+			cc.moveMarcador();
 			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
