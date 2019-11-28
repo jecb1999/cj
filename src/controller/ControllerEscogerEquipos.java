@@ -135,9 +135,13 @@ public class ControllerEscogerEquipos implements Initializable {
 		cm.getGame().addTeamJugador(cm.getGame().searchTeam(equipo.getText()));
 	}
 	
-	public void buscarEquipo(ActionEvent ea) {
+	public void buscarEquipo(ActionEvent ea) throws Exception {
 		try {
 			encontro.setText(cm.getGame().binarioEquipoNombre(busca.getText()));
+			Team actual = cm.getGame().searchTeam(busca.getText());
+			equipo.setText(actual.getName());
+			Image image = new Image(new FileInputStream(actual.getFirstUniform().getImg()));
+			uniform.setImage(image);
 		} catch (ExceptionNotTeam e) {
 			encontro.setText(e.getMessage());
 		}

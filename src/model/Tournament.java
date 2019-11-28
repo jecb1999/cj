@@ -84,7 +84,7 @@ public class Tournament implements Serializable {
 			jugador = pos.getTeam2();
 			oponente = pos.getTeam1();
 		}
-		Clock c = new Clock(0);
+		Clock c = new Clock();
 		Ball b = new Ball(200, 200, "ball.jpg");
 		GameUser gu = new GameUser(20, 20, jugador.getName() + "Local.png");
 		Opponent op = new Opponent(20, 20, oponente.getName() + "Local.png");

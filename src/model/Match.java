@@ -6,6 +6,8 @@ public class Match {
 	private Ball ball;
 	private Opponent opponent;
 	private GameUser gameUser;
+	private int golesTeam1;
+	private int golesTeam2;
 
 	public Match(Clock clock, Ball ball, Opponent opponent, GameUser gameUser) {
 		super();
@@ -13,6 +15,8 @@ public class Match {
 		this.ball = ball;
 		this.opponent = opponent;
 		this.gameUser = gameUser;
+		golesTeam1 = 0;
+		golesTeam2 = 0;
 	}
 
 	public Clock getClock() {
