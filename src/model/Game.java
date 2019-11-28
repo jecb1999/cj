@@ -119,7 +119,7 @@ public class Game {
 
 	public void start() {
 		loadTeams();
-		
+
 		addScore("camilo", 25);
 		addScore("jaime", 15);
 		addScore("ivan", 45);
@@ -135,7 +135,7 @@ public class Game {
 		addScore("ivana", 40);
 		addScore("pedroa", 25);
 		addScore("albertoa", 1);
-		
+
 	}
 
 	public void loadTeams() {
@@ -212,12 +212,13 @@ public class Game {
 		int max = listaSorteo.size();
 		int counter = 0;
 		while (counter < 8) {
-			int team1 = (int) (Math.random() * max) ;
-			int team2 = (int) (Math.random() * max) ;
-			while(selected.contains(team1)) {
-				 team1 = (int) (Math.random() * max) ;
-			}while(team1 == team2 || selected.contains(team2)) {
-				team2 = (int) (Math.random() * max) ;
+			int team1 = (int) (Math.random() * max);
+			int team2 = (int) (Math.random() * max);
+			while (selected.contains(team1)) {
+				team1 = (int) (Math.random() * max);
+			}
+			while (team1 == team2 || selected.contains(team2)) {
+				team2 = (int) (Math.random() * max);
 			}
 			addPosition(listaSorteo.get(team1), listaSorteo.get(team2));
 			selected.add(team1);
@@ -254,42 +255,42 @@ public class Game {
 		}
 		return e;
 	}
-	
+
 	public String binarioPuntajeNombre(String a) throws ExceptionNotPlayer {
 		ArrayList<Score> e = ordenarPorNombre();
 		String msg = "";
 		boolean encontrado = false;
 		int inicio = 0;
-		int fin = e.size()-1;
-		while(inicio <= fin && !encontrado ) {
-			int medio = (inicio + fin)/ 2;
-			if(e.get(medio).getName().equals(a)) {
+		int fin = e.size() - 1;
+		while (inicio <= fin && !encontrado) {
+			int medio = (inicio + fin) / 2;
+			if (e.get(medio).getName().equals(a)) {
 				encontrado = true;
 				msg = e.get(medio).toString();
-			} else if(e.get(medio).getName().compareTo(a) > 0) {
-				fin = medio -1;
-			} else if(e.get(medio).getName().compareTo(a) < 0) {
-				inicio = medio +1;
-			} 
+			} else if (e.get(medio).getName().compareTo(a) > 0) {
+				fin = medio - 1;
+			} else if (e.get(medio).getName().compareTo(a) < 0) {
+				inicio = medio + 1;
+			}
 		}
 		if (!encontrado) {
 			throw new ExceptionNotPlayer();
 		}
-		
+
 		return msg;
 	}
-		
+
 	public void addTeamJugador(Team team) {
 		tournament = new Tournament(team);
 		listaSorteo = hacerListaTeam();
 		makeTournament();
 	}
-	
+
 	public Position getPosition() {
 		return tournament.getFirstPosition();
 	}
-	
-	public Team getTeamGanador() {
-		return tournament.resultadosPartidos();
+
+	public Match getMatch() {
+		return tournament.getMatch();
 	}
 }

@@ -21,7 +21,7 @@ public class Tournament implements Serializable {
 	public void setTeamJugador(Team team) {
 		teamJugador = team;
 	}
-	
+
 	public Position getFirstPosition() {
 		return firstPosition;
 	}
@@ -48,27 +48,59 @@ public class Tournament implements Serializable {
 		}
 	}
 
-//	public Position posSig() {
-//		return firstPosition.posSig();
-//	}
-
-	public Team resultadosPartidos() {
+	public void simularPartido(Position pos) {
 		Team ganador = null;
-		Position pos = firstPosition.posSig();
-		System.out.println(pos.getFase());
-		if (pos != null && !pos.getTeam1().getName().equals(teamJugador.getName())
-				|| !pos.getTeam2().getName().equals(teamJugador.getName())) {
-			ganador = pos.resultadoPartidos();
-			pos.setTeamGanador(ganador);
-			if(pos.getFather() != null) {
-				if(pos.getFather().getTeam1() == null) {
-					pos.getFather().setTeam1(ganador);
-				}else {
-					pos.getFather().setTeam2(ganador);
-				}
+
+		ganador = pos.resultadoPartidos();
+		pos.setTeamGanador(ganador);
+		if (pos.getFather() != null) {
+			if (pos.getFather().getTeam1() == null) {
+				pos.getFather().setTeam1(ganador);
+			} else {
+				pos.getFather().setTeam2(ganador);
 			}
 		}
-		return ganador;
+
 	}
 
+	public boolean isJugable(Position position) {
+		boolean ret = false;
+		if (position.getTeam1().getName().equals(teamJugador.getName())
+				|| position.getTeam2().getName().equals(teamJugador.getName())) {
+			ret = true;
+		}
+		return ret;
+	}
+
+	public Match addMatch(Position pos) {
+		Team jugador = null;
+		Team oponente = null;
+		if (pos.getTeam1().getName().equals(teamJugador.getName())) {
+			jugador = pos.getTeam1();
+			oponente = pos.getTeam2();
+		} else {
+			jugador = pos.getTeam2();
+			oponente = pos.getTeam1();
+		}
+		Clock c = new Clock(0);
+		Ball b = new Ball(200, 200, "ball.jpg");
+		GameUser gu = new GameUser(20, 20, jugador.getName() + "Local.png");
+		Opponent op = new Opponent(20, 20, oponente.getName() + "Local.png");
+		Match nuevoM = new Match(c, b, op, gu);
+		pos.setMatch(nuevoM);
+		return nuevoM;
+	}
+
+	public Match getMatch() {
+		Match m = null;
+		Position pos = firstPosition.posSig();
+		while (pos != null && !isJugable(pos)) {
+			simularPartido(pos);
+			pos = firstPosition.posSig();
+		}
+		if (pos != null) {
+			m = addMatch(pos);
+		}
+		return m;
+	}
 }

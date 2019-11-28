@@ -1,14 +1,18 @@
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import model.Position;
 
 public class ControllerArbolPintado implements Initializable{
@@ -43,9 +47,12 @@ public class ControllerArbolPintado implements Initializable{
 		}
 	}
 	
-	public void clickJugar(ActionEvent ae) {
-		cm.getGame().getTeamGanador();
+	public void clickJugar(ActionEvent ae) throws Exception {
 		dibujarArbol();
+		AnchorPane escoger = FXMLLoader.load(getClass().getResource("/application/Cancha.fxml"));
+		Scene scene = new Scene(escoger);
+		cm.getStage().setScene(scene);
+		cm.getStage().show();
 	}
 
 }

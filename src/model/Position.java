@@ -137,4 +137,16 @@ public class Position {
 		this.father = father;
 	}
 
+//	public GameUser getGameUser() {
+//		
+//	}
+
+	public Match getMatch() {
+		return match;
+	}
+
+	public void setMatch(Match match) {
+		this.match = match;
+	}
+
 }

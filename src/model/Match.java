@@ -7,7 +7,44 @@ public class Match {
 	private Opponent opponent;
 	private GameUser gameUser;
 
-	public Match() {
+	public Match(Clock clock, Ball ball, Opponent opponent, GameUser gameUser) {
+		super();
+		this.clock = clock;
+		this.ball = ball;
+		this.opponent = opponent;
+		this.gameUser = gameUser;
+	}
+
+	public Clock getClock() {
+		return clock;
+	}
+
+	public void setClock(Clock clock) {
+		this.clock = clock;
+	}
+
+	public Ball getBall() {
+		return ball;
+	}
+
+	public void setBall(Ball ball) {
+		this.ball = ball;
+	}
+
+	public Opponent getOpponent() {
+		return opponent;
+	}
+
+	public void setOpponent(Opponent opponent) {
+		this.opponent = opponent;
+	}
+
+	public GameUser getGameUser() {
+		return gameUser;
+	}
+
+	public void setGameUser(GameUser gameUser) {
+		this.gameUser = gameUser;
 	}
 
 }

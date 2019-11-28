@@ -14,5 +14,8 @@
          </font>
       </Label>
       <Label layoutX="519.0" layoutY="23.0" text="Tiempo" textFill="WHITE" />
+      <ImageView fx:id="jugador" fitHeight="150.0" fitWidth="124.0" layoutX="29.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="oponente" fitHeight="150.0" fitWidth="110.0" layoutX="452.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="balon" fitHeight="66.0" fitWidth="90.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
