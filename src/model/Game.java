@@ -95,7 +95,7 @@ public class Game {
 
 	public Team searchTeam(String name) {
 		if (firstTeam != null) {
-			if (firstTeam.getName().equals(name)) {
+			if (firstTeam.getName().equalsIgnoreCase(name)) {
 				return firstTeam;
 			} else {
 				return firstTeam.searchTeam(name);

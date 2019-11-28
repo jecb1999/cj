@@ -42,7 +42,7 @@ public class Team {
 
 	public Team searchTeam(String name2) {
 		if (sig != null) {
-			if (sig.getName().equals(name2)) {
+			if (sig.getName().equalsIgnoreCase(name2)) {
 				return sig;
 			} else {
 				return sig.searchTeam(name2);
