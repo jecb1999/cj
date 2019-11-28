@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import Exceptions.ExceptionNotTeam;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -41,6 +43,12 @@ public class ControllerEscogerEquipos implements Initializable {
 	private Button visitante;
 	private Stage stageUniforme;
 	private boolean selTeam;
+
+	@FXML
+	private TextField busca;
+
+	@FXML
+	private Label encontro;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -106,23 +114,32 @@ public class ControllerEscogerEquipos implements Initializable {
 		cm.getStage().setScene(scene);
 		cm.getStage().show();
 	}
-	
+
 	public void clickUniforme(MouseEvent ae) {
-		if(selTeam == true) {
+		if (selTeam == true) {
 			uniform.setOpacity(0.65);
 			local.setVisible(false);
 			visitante.setVisible(false);
-		}else {
+		} else {
 			Alert a = new Alert(AlertType.ERROR);
 			a.setContentText("no has escogido equipo");
 			a.show();
 		}
 	}
+
 	public void clickEquipo(MouseEvent ae) {
 		anterior.setVisible(false);
 		siguiente.setVisible(false);
 		equipo.setOpacity(0.65);
 		selTeam = true;
 		cm.getGame().addTeamJugador(cm.getGame().searchTeam(equipo.getText()));
+	}
+	
+	public void buscarEquipo(ActionEvent ea) {
+		try {
+			encontro.setText(cm.getGame().binarioEquipoNombre(busca.getText()));
+		} catch (ExceptionNotTeam e) {
+			encontro.setText(e.getMessage());
+		}
 	}
 }

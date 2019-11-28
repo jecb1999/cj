@@ -12,6 +12,8 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import Exceptions.ExceptionNotPlayer;
+import Exceptions.ExceptionNotTeam;
+import javafx.scene.Node;
 
 public class Game {
 
@@ -23,7 +25,7 @@ public class Game {
 	public Game() {
 		start();
 		organizarEquipos();
-
+		readScore();
 	}
 
 	public Team getFirstTeam() {
@@ -119,23 +121,7 @@ public class Game {
 
 	public void start() {
 		loadTeams();
-		
-		addScore("camilo", 25);
-		addScore("jaime", 15);
-		addScore("ivan", 45);
-		addScore("pedro", 65);
-		addScore("alberto", 5);
-		addScore("camila", 35);
-		addScore("jaimee", 75);
-		addScore("ivann", 48);
-		addScore("pedroo", 95);
-		addScore("albertoo", 2);
-		addScore("camiloa", 23);
-		addScore("jaimea", 17);
-		addScore("ivana", 40);
-		addScore("pedroa", 25);
-		addScore("albertoa", 1);
-		
+	
 	}
 
 	public void loadTeams() {
@@ -164,26 +150,27 @@ public class Game {
 		}
 	}
 
-	public void serializableLastTournament() {
+	public void serializableScores() {
 		try {
-			FileOutputStream fs = new FileOutputStream(".\\LastTournament");
+			FileOutputStream fs = new FileOutputStream(".\\data\\Scores.txt");
 			ObjectOutputStream os = new ObjectOutputStream(fs);
-			os.writeObject(tournament);
+			os.writeObject(firstScore);
 			os.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void readLastTournament() {
+	public void readScore() {
 		try {
-
-			File f = new File(".\\" + "Serializable");
-			FileInputStream fis = new FileInputStream(f);
-			ObjectInputStream ois = new ObjectInputStream(fis);
-			tournament = (Tournament) ois.readObject();
-			ois.close();
-			fis.close();
+			File f = new File(".\\data\\Scores.txt");
+			if(f.exists()) {
+				FileInputStream fis = new FileInputStream(f);
+				ObjectInputStream ois = new ObjectInputStream(fis);
+				firstScore = (Score) ois.readObject();
+				ois.close();
+				fis.close();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -233,6 +220,7 @@ public class Game {
 		} else {
 			firstScore.addScore(pri);
 		}
+		serializableScores();
 	}
 
 	public ArrayList<Score> ordenarPorPuntaje() {
@@ -253,6 +241,54 @@ public class Game {
 			}
 		}
 		return e;
+	}
+	
+	public ArrayList<Team> pasar() {
+		ArrayList<Team> e = new ArrayList<Team>();
+		Team actual = firstTeam;
+		while(actual != null) {
+			e.add(actual);
+			actual = actual.getSig();
+		}
+		return e;
+	}
+	
+	public String binarioEquipoNombre(String a) throws ExceptionNotTeam {
+		ArrayList<Team> e = pasar();
+		String msg = "";
+		boolean encontrado = false;
+		int inicio = 0;
+		int fin = e.size()-1;
+		while(inicio <= fin && !encontrado ) {
+			int medio = (inicio + fin)/ 2;
+			if(e.get(medio).getName().equalsIgnoreCase(a)) {
+				encontrado = true;
+				msg = e.get(medio).toString();
+			} else if(e.get(medio).getName().compareToIgnoreCase(a) > 0) {
+				fin = medio -1;
+			} else if(e.get(medio).getName().compareToIgnoreCase(a) < 0) {
+				inicio = medio +1;
+			} 
+		}
+		if (!encontrado) {
+			throw new ExceptionNotTeam();
+		}
+		
+		return msg;
+	}
+		
+	public void addTeamJugador(Team team) {
+		tournament = new Tournament(team);
+		listaSorteo = hacerListaTeam();
+		makeTournament();
+	}
+	
+	public Position getPosition() {
+		return tournament.getFirstPosition();
+	}
+	
+	public Team getTeamGanador() {
+		return tournament.resultadosPartidos();
 	}
 	
 	public String binarioPuntajeNombre(String a) throws ExceptionNotPlayer {
@@ -277,19 +313,5 @@ public class Game {
 		}
 		
 		return msg;
-	}
-		
-	public void addTeamJugador(Team team) {
-		tournament = new Tournament(team);
-		listaSorteo = hacerListaTeam();
-		makeTournament();
-	}
-	
-	public Position getPosition() {
-		return tournament.getFirstPosition();
-	}
-	
-	public Team getTeamGanador() {
-		return tournament.resultadosPartidos();
 	}
 }
