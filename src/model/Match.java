@@ -130,7 +130,7 @@ public class Match {
 	
 	public boolean stopGame() {
 		boolean ret = false;
-		if(clock.getSeconds()>20) {
+		if(clock.getSeconds()>90) {
 			ret = true;
 		}
 		return ret;

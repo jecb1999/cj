@@ -11,6 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import Exceptions.ExceptionFinalJuego;
 import Exceptions.ExceptionNotPlayer;
 import Exceptions.ExceptionNotTeam;
 import javafx.scene.Node;
@@ -313,5 +314,13 @@ public class Game {
 		}
 		
 		return msg;
+	}
+	
+	public boolean nextMatch() throws ExceptionFinalJuego {
+		return tournament.nextMatch();
+	}
+	
+	public int getScore() {
+		return tournament.getScore();
 	}
 }

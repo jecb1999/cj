@@ -130,5 +130,5 @@ public class ControllerCancha implements Initializable {
 	public void setVisibility() {
 		continuar.setVisible(true);
 	}
-
+	
 }

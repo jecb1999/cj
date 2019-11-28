@@ -43,6 +43,7 @@ public class ControllerEscogerEquipos implements Initializable {
 	private Button visitante;
 	private Stage stageUniforme;
 	private boolean selTeam;
+	private boolean selUni;
 
 	@FXML
 	private TextField busca;
@@ -55,6 +56,7 @@ public class ControllerEscogerEquipos implements Initializable {
 		cm = new ControllerMenu();
 		equipo.setText(cm.getGame().getFirstTeam().getName());
 		selTeam = false;
+		selUni = false;
 		Image image;
 		try {
 			image = new Image(new FileInputStream(cm.getGame().getFirstTeam().getFirstUniform().getImg()));
@@ -109,10 +111,16 @@ public class ControllerEscogerEquipos implements Initializable {
 	}
 
 	public void clickJugar(ActionEvent ae) throws Exception {
+		if(selTeam && selUni) {
 		AnchorPane escoger = FXMLLoader.load(getClass().getResource("/application/ArbolPintado.fxml"));
 		Scene scene = new Scene(escoger);
 		cm.getStage().setScene(scene);
 		cm.getStage().show();
+		}else {
+			Alert a = new Alert(AlertType.ERROR);
+			a.setContentText("no has escogido equipo y/o uniforme");
+			a.show();
+		}
 	}
 
 	public void clickUniforme(MouseEvent ae) {
@@ -120,6 +128,7 @@ public class ControllerEscogerEquipos implements Initializable {
 			uniform.setOpacity(0.65);
 			local.setVisible(false);
 			visitante.setVisible(false);
+			selUni = true;
 		} else {
 			Alert a = new Alert(AlertType.ERROR);
 			a.setContentText("no has escogido equipo");

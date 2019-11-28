@@ -2,6 +2,8 @@ package model;
 
 import java.io.Serializable;
 
+import Exceptions.ExceptionFinalJuego;
+
 public class Tournament implements Serializable {
 
 	private Position firstPosition;
@@ -31,11 +33,11 @@ public class Tournament implements Serializable {
 			Position prev1 = new Position();
 			Position prev2 = new Position();
 			if (nivel == 0) {
-				pos.setFase("final");
+				pos.setFase(Position.ffinalj);
 			} else if (nivel == 1) {
-				pos.setFase("semifinal");
+				pos.setFase(Position.fsemis);
 			} else if (nivel == 2) {
-				pos.setFase("cuartos de final");
+				pos.setFase(Position.fcuartos);
 			}
 			pos.setRight(prev1);
 			pos.setLeft(prev2);
@@ -44,13 +46,12 @@ public class Tournament implements Serializable {
 			anhadirHijos(prev1, nivel + 1);
 			anhadirHijos(prev2, nivel + 1);
 		} else {
-			pos.setFase("octavos");
+			pos.setFase(Position.foctavos);
 		}
 	}
 
 	public void simularPartido(Position pos) {
 		Team ganador = null;
-
 		ganador = pos.resultadoPartidos();
 		pos.setTeamGanador(ganador);
 
@@ -100,5 +101,21 @@ public class Tournament implements Serializable {
 			m.setPos(pos);
 		}
 		return m;
+	}
+
+	public boolean nextMatch() throws ExceptionFinalJuego{
+		Position pos = firstPosition.posSig();
+		if(pos == null) {
+			throw new ExceptionFinalJuego();
+		}
+		if (!isJugable(pos)) {
+			simularPartido(pos);
+			return true;
+		}
+		return false;
+	}
+	
+	public int getScore() {
+		return firstPosition.getScore(teamJugador);
 	}
 }
