@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -12,6 +13,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import model.Match;
 import threads.BallonThread;
@@ -45,6 +48,7 @@ public class ControllerCancha implements Initializable {
 	private Text t1;
 	@FXML 
 	private Text t2;
+	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -78,6 +82,14 @@ public class ControllerCancha implements Initializable {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		cm.getStage().addEventHandler(KeyEvent.KEY_PRESSED,e ->{
+			if(e.getCode().equals(KeyCode.UP)) {
+				match.arriba();
+			}else if(e.getCode().equals(KeyCode.DOWN)) {
+					match.abajo();
+				}
+			jugador.setY(match.getGameUser().getY());
+		});
 
 	}
 
@@ -98,5 +110,6 @@ public class ControllerCancha implements Initializable {
 		gt2.setText(Integer.toString(match.getGolesTeam2()));
 		gt1.setText(Integer.toString(match.getGolesTeam1()));
 	}
+		
 
 }

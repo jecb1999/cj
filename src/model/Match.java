@@ -106,5 +106,17 @@ public class Match {
 			ball.setVectX(Math.abs(ball.getVectX()));
 		}
 	}
+	
+	public void arriba() {
+		if(gameUser.getY() >= 10 ) {
+			gameUser.setY(gameUser.getY()-10);
+		}
+	}
+	
+	public void abajo() {
+		if(gameUser.getY() <= 340 - w) {
+		gameUser.setY(gameUser.getY()+10);
+		}
+	}
 
 }
